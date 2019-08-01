@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 's6n$t$a+lw4pg$zb&f%8x59thiofb&2a)@ib9j62wumiqgkf+x'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'service_proxy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '', # leave blank to use default postgres port
     }
 }
 
@@ -105,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Toronto'
 
 USE_I18N = True
 
@@ -113,8 +117,21 @@ USE_L10N = True
 
 USE_TZ = True
 
+# site url prefix
+SITE_PREFIX = ''
+if SITE_PREFIX:
+    FORCE_SCRIPT_NAME = SITE_PREFIX
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = SITE_PREFIX + '/static/'
+
+# Absolute path to the directory which static files will be collected
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# override default settings by creating and modifying local_settings.py
+try:
+    from .local_settings import *
+except ImportError as e:
+    print("Please create a local_settings.py file to modify default settings.")
