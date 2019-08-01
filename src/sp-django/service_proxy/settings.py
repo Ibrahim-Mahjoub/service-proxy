@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # new apps
     'users.apps.UsersConfig',
+    'proxy.apps.ProxyConfig',
 ]
 
 MIDDLEWARE = [
