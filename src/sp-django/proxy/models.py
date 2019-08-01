@@ -8,6 +8,8 @@ class Service(models.Model):
     """
     # name of service
     name = models.TextField()
+    # service url host
+    host = models.TextField()
     # url formatted string of default parameters
     params = models.TextField()
 
