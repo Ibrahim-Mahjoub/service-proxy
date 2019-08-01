@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Custom user model settings
+# refer to https://docs.djangoproject.com/en/2.0/topics/auth/customizing/
+AUTH_USER_MODEL = 'users.SPUser'
 
 # Application definition
 
@@ -37,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # new apps
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
