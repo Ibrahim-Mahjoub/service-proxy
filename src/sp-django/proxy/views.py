@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
-from .helpers import get_utorid
+from django.core.exceptions import ObjectDoesNotExist
+from .helpers import get_utorid, computeRedirectURL
 from .models import Service, Mask
 
 # Create your views here.
@@ -13,22 +14,28 @@ class RedirectView(View):
         Redirect request with parameters.
         """
         try:
-            service_name = request.GET.get('service')
-            params = request.GET.get('params', None)
+            # extract url parameters
+            service_name = request.GET.__getitem__('service')
+            params = request.GET.get('params')
             utorid = get_utorid(request)
 
+            # query for required info
             service = Service.objects.get(name=service_name)
             host = service.host
+
+            # use default service parameters if none were provided in the request
             if not params:
                 params = service.params
 
             usr = Mask.objects.get(userId=utorid, service=service).anonId
 
-            url = host + "?" + params + "&usr=" + usr
+            # add user parameter to params
+            params += "&usr=" + usr
 
-            return HttpResponseRedirect(url)
+                                          
+            return HttpResponseRedirect(computeRedirectURL(host, params))
 
         except KeyError:
-            return HttpResponseBadRequest() 
+            return HttpResponseBadRequest("<h1>An error occured while processing your request</h1>") 
         except ObjectDoesNotExist:
-            return HttpResponseBadRequest()
+            return HttpResponseBadRequest("<h1>An error occured while processing your request</h1>")
