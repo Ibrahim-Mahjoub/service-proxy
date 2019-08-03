@@ -1,6 +1,7 @@
-import uuid
 from random import SystemRandom
 from string import ascii_uppercase, digits
+import logging
+from django.utils.timezone import localtime
 
 def get_utorid(request):
     """
@@ -24,3 +25,10 @@ def generateSessionId():
     """
     return ''.join(SystemRandom().choice(ascii_uppercase + digits) 
            for _ in range(5))
+
+def log(msg, logger):
+    """
+    Logs message msg to the appropriate logger.
+    """
+    logger = logging.getLogger(logger)
+    logger.info(str(localtime()) + " | " + msg)

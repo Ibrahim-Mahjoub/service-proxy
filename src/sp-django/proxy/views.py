@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from .helpers import get_utorid, generateRedirectURL, generateSessionId
+from .helpers import get_utorid, generateRedirectURL, generateSessionId, log
 from .models import Service, Mask
 
 # Create your views here.
@@ -23,7 +23,7 @@ class RedirectView(View):
 
             # query for required info
             service = Service.objects.get(name=service_name)
-            usr = Mask.objects.get(userId=utorid, service=service)
+            mask = Mask.objects.get(userId=utorid, service=service)
 
             host = service.host
             # use default service parameters if none were provided in the request
@@ -34,10 +34,15 @@ class RedirectView(View):
             sessionId = generateSessionId()
 			
             # add additional parameters to params
-            params += "&usr=" + usr.pseudoId
+            params += "&usr=" + mask.pseudoId
             params += "&sid=" + sessionId
 
-                                          
+            # log request
+            log(
+                mask.anonId + " | " + service_name + " | " + sessionId,
+                'activity.logging'
+            )
+                              
             return HttpResponseRedirect(generateRedirectURL(host, params))
 
         except KeyError:
