@@ -7,7 +7,7 @@ class Service(models.Model):
     The service being requested.
     """
     # name of service
-    name = models.TextField()
+    name = models.TextField(unique=True)
     # service url host
     host = models.TextField()
     # url formatted string of default parameters
