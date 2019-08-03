@@ -7,9 +7,11 @@ class Service(models.Model):
     The service being requested.
     """
     # name of service
-    name = models.TextField()
+    name = models.TextField(unique=True)
+    # service url host
+    host = models.TextField()
     # url formatted string of default parameters
-    params = models.TextField()
+    params = models.TextField(blank=True)
 
 class Mask(models.Model):
     """
@@ -19,10 +21,10 @@ class Mask(models.Model):
     # authenticated user's id
     userId = models.TextField()
     # the pseudonymous service registered id
-    anonId = models.TextField()
+    pseudoId = models.TextField()
     # the service the mask belongs to
     service = models.ForeignKey(Service, on_delete=models.CASCADE, 
                                related_name='mask')
 
     class Meta:
-        unique_together = [['userId', 'service'], ['anonId', 'service']]
+        unique_together = [['userId', 'service'], ['pseudoId', 'service']]
