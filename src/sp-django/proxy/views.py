@@ -39,7 +39,7 @@ class RedirectView(View):
 
             # log request
             log(
-                mask.anonId + " | " + service_name + " | " + sessionId,
+                mask.pseudoId + " | " + service_name + " | " + sessionId,
                 'activity.logging'
             )
                               
