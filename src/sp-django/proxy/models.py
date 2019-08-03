@@ -11,7 +11,7 @@ class Service(models.Model):
     # service url host
     host = models.TextField()
     # url formatted string of default parameters
-    params = models.TextField()
+    params = models.TextField(blank=True)
 
 class Mask(models.Model):
     """
