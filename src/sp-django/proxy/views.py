@@ -14,25 +14,27 @@ class RedirectView(View):
         Redirect request with parameters.
         """
         try:
+            # user authentication
+            utorid = get_utorid(request)
+
             # extract url parameters
             service_name = request.GET.__getitem__('service')
             params = request.GET.get('params')
-            utorid = get_utorid(request)
 
             # query for required info
             service = Service.objects.get(name=service_name)
-            host = service.host
+            usr = Mask.objects.get(userId=utorid, service=service)
 
+            host = service.host
             # use default service parameters if none were provided in the request
             if not params:
                 params = service.params
 
-            usr = Mask.objects.get(userId=utorid, service=service)
-
+	    # get unique session in
             sessionId = createSessionId()
 			
-            # add user parameter to params
-            params += "&usr=" + usr.anonId
+            # add additional parameters to params
+            params += "&usr=" + usr.pseudoId
             params += "&sid=" + sessionId
 
                                           
