@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from .helpers import get_utorid, computeRedirectURL, createSessionId
+from .helpers import get_utorid, generateRedirectURL, generateSessionId
 from .models import Service, Mask
 
 # Create your views here.
@@ -30,15 +30,15 @@ class RedirectView(View):
             if not params:
                 params = service.params
 
-	    # get unique session in
-            sessionId = createSessionId()
+	    # get random session id
+            sessionId = generateSessionId()
 			
             # add additional parameters to params
             params += "&usr=" + usr.pseudoId
             params += "&sid=" + sessionId
 
                                           
-            return HttpResponseRedirect(computeRedirectURL(host, params))
+            return HttpResponseRedirect(generateRedirectURL(host, params))
 
         except KeyError:
             return HttpResponseBadRequest("<h1>An error occured while processing your request</h1>") 
