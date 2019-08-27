@@ -5,7 +5,7 @@ This document is an overview of service-proxy's proxy features.
 
      - name: service name
      - host: service redirect url (including path and port if applicable)
-     - params: url formatted string of defualt service specific url parameters
+     - params: url formatted string of default service specific url parameters
 
  * Mask * (proxy: models.py)
  Associates userid with a service specific pseudoid.
@@ -14,7 +14,7 @@ This document is an overview of service-proxy's proxy features.
      - pseudoId: pseudonymous service specifc id
      - service: service associated with mask (refers to service model)
 
- NOTE: (userId, service) and (pseudoId, service) have a unique together constraint.
+ NOTE: (userId, service) and (pseudoId, service) have unique together constraints.
 
  * Authentication * (proxy: helpers.py)
  Checks for the presence of a 'utorid' environment variable in the request object. The variable holds the authenticated user's userId.
@@ -32,7 +32,7 @@ This document is an overview of service-proxy's proxy features.
      - params=<optionally override default service parameters>
 
  Upon successfully retrieving the requested service and user mask, the redirect url is then generated with the following url parameters:
-     - defualt service parameters (or those passed in through the params request parameter)
+     - default service parameters (or those passed in through the params request parameter)
      - usr=<pseudoId>
      - sid=<randomly generated session id>
 
