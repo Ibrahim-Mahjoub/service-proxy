@@ -91,24 +91,34 @@ DATABASES = {
 }
 
 # Logging
-# include reference url here
+# https://docs.djangoproject.com/en/2.2/topics/logging/ 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'handlers': {
-        'file': {
+        'activityFile': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'activity.log'),
            
-        } 
+        },
+        'errorFile': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'error.log'),
+        },
     },
     'loggers': {
         'activity.logging': {
-            'handlers': ['file'],
+            'handlers': ['activityFile'],
             'level': 'INFO',
             'propagate': True,
-        }
+        },
+        'error.logging': {
+            'handlers': ['errorFile'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
     }
 }
 
