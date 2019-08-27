@@ -1,7 +1,7 @@
 This document is an overview of the setup procedure for the service-proxy application.
 
  * Overview *
- This application runs on python 3.7.4
+ This application runs on python 3.7.4 and uses postgresql 10.
 
  * Settings  *
  To configure project settings, create a local_settings.py file in the main app folder (service_proxy) and override any settings.
