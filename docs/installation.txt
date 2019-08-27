@@ -1,6 +1,0 @@
-Overview:
- - This application runs on python 3.7.4
-
-Logging:
- - Logging is already configured in the project's settings.py
- - If your webserver is running with a user that does not have file creation and write access to the project directory, create the activity.log file manually in the absolute path specified in settings.py. Then create a group and add the webserver user (apache is www-data) to that group and make it the default group for the activity.log file.
