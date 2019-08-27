@@ -1,0 +1,9 @@
+This document is an overview of service-proxy's user features.
+
+ * Overview *
+ Service proxy does not utilize a user model.
+
+ * SPUser * (users: models.py)
+ A custom user model which inherits from django's default user model.
+
+ NOTE: SPUser is not implemented as it has no use in the current setup, but allows for future customization of the django user model.

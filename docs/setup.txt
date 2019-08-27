@@ -6,10 +6,10 @@ This document is an overview of the setup procedure for the service-proxy applic
  * Settings  *
  To configure project settings, create a local_settings.py file in the main app folder (service_proxy) and override any settings.
 
- * Logging *
- NOTE: Logging uses django's logging features which are configured in the project's settings.py file.
-
+ * Logging * 
  If your webserver is running with a user that does not have file creation and write access to the project directory:  
      1. create the log files manually in the absolute path specified in settings.py
      2. create a group and add the webserver user (apache's is www-data) to that group
      3. make it the default group for the log files
+
+ NOTE: Logging uses django's logging features which are configured in the project's settings.py file.
