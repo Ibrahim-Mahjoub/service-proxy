@@ -1,7 +1,7 @@
 This document is an overview of the setup procedure for the service-proxy application.
 
  * Overview *
- This application runs on python 3.7.4 and uses postgresql 10.
+ This application runs on python 3.7.4 and uses postgresql 10. The remaining requirements are in src/requirements.txt.
 
  * Webserver *
  In order to host this project in a production setting, you will need a webserver. The following is what was placed in apache's config file to setup an instance of this project:
