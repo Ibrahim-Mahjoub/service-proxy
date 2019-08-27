@@ -3,8 +3,28 @@ This document is an overview of the setup procedure for the service-proxy applic
  * Overview *
  This application runs on python 3.7.4 and uses postgresql 10.
 
+ * Webserver *
+ In order to host this project in a production setting, you will need a webserver. The following is what was placed in apache's config file to setup an instance of this project:
+
+ Alias /*Site Prefix*/static *Path to Project Folder*/src/sp-django/static
+ <Directory *Path to Project Folder*/src/sp-django/static >
+     Require all granted
+ </Directory>
+
+ <Directory <Path to Project Folder>/src/sp-django>
+     <Files wsgi.py>
+         Require all granted
+     </Files>
+ </Directory>
+
+ WSGIDaemonProcess proxy_*Site Prefix* python-home=*Path to VirtualEnv* python-path=*Path to Project Folder*/src/sp-django
+ WSGIProcessGroup proxy_*Site Prefix*
+ WSGIScriptAlias /*Site Prefix* *Path to Project Folder*/src/sp-django/service_proxy/wsgi.py process-group=proxy_*Site Prefix* application-group=%{GLOBAL}
+
  * Settings  *
  To configure project settings, create a local_settings.py file in the main app folder (service_proxy) and override any settings.
+
+ NOTE: Refer to docs/sample_local_settings.py for more details.
 
  * Logging * 
  If your webserver is running with a user that does not have file creation and write access to the project directory:  
