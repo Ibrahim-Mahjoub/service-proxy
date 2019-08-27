@@ -1,0 +1,39 @@
+This document is an overview of service-proxy's proxy features.
+
+ * Service * (proxy: models.py)
+ Holds service specific redirect information.
+
+     - name: service name
+     - host: service redirect url (including path and port if applicable)
+     - params: url formatted string of defualt service specific url parameters
+
+ * Mask * (proxy: models.py)
+ Associates userid with a service specific pseudoid.
+
+     - userId: authenticated user's id
+     - pseudoId: pseudonymous service specifc id
+     - service: service associated with mask (refers to service model)
+
+ NOTE: (userId, service) and (pseudoId, service) have a unique together constraint.
+
+ * Authentication * (proxy: helpers.py)
+ Checks for the presence of a 'utorid' environment variable in the request object. The variable holds the authenticated user's userId.
+
+ NOTE: This is used in conjunction with shibboleth server authentication.
+
+ * Sessions * (proxy: helpers.py)
+ A randomly generated 5 character alphanumeric session id is generated with each request. Used for request identification.
+
+ * Redirect * (proxy: views.py)
+ When requesting a redirect to a service through the redirect endpoint, a check is done to ensure that the 'utorid' env. variable is set and contains a valid userId with a corresponding mask for the requested service.
+
+ URL request parameters:
+     - service-proxy=<service name>
+     - params=<optionally override default service parameters>
+
+ Upon successfully retrieving the requested service and user mask, the redirect url is then generated with the following url parameters:
+     - defualt service parameters (or those passed in through the params request parameter)
+     - usr=<pseudoId>
+     - sid=<randomly generated session id>
+
+ The user is then redirected to the generated redirect url.
