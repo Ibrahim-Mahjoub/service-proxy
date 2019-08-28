@@ -18,7 +18,7 @@ DATABASES = {
 # False - production, True - development
 DEBUG = False
 
-# add hosting server ip address
+# add hosting server ip address or domain
 ALLOWED_HOSTS = []
 
 # add website url prefix (remove if no prefix is used)
