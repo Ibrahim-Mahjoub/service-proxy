@@ -47,13 +47,13 @@ class RedirectView(View):
 
         except KeyError:
             logException(
-                '',
+                str(request.GET.urlencode()),
                 'error.logging'
             )
             return HttpResponseBadRequest("<h1>An error occured while processing your request</h1>") 
         except ObjectDoesNotExist:
             logException(
-                '',
+                str(request.GET.urlencode()),
                 'error.logging'
             )
             return HttpResponseBadRequest("<h1>An error occured while processing your request</h1>")
