@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django.core.exceptions import ObjectDoesNotExist
-from .helpers import get_utorid, generateRedirectURL, generateSessionId, log
+from .helpers import get_utorid, generateRedirectURL, generateSessionId, log, logException
 from .models import Service, Mask
 
 # Create your views here.
@@ -46,6 +46,14 @@ class RedirectView(View):
             return HttpResponseRedirect(generateRedirectURL(host, params))
 
         except KeyError:
+            logException(
+                '',
+                'error.logging'
+            )
             return HttpResponseBadRequest("<h1>An error occured while processing your request</h1>") 
         except ObjectDoesNotExist:
+            logException(
+                '',
+                'error.logging'
+            )
             return HttpResponseBadRequest("<h1>An error occured while processing your request</h1>")

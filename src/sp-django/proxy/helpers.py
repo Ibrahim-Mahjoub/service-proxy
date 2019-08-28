@@ -28,7 +28,21 @@ def generateSessionId():
 
 def log(msg, logger):
     """
-    Logs message msg to the appropriate logger.
+    Logs message, msg, to the appropriate logger.
+   
+    :param msg: log message (string)
+    :param logger: logger name (string)
     """
     logger = logging.getLogger(logger)
     logger.info(str(localtime()) + " | " + msg)
+
+def logException(msg, logger):
+    """
+    Logs message, msg, to the appropriate logger along with a stacktrace
+    of the exception.
+
+    :param msg: log message (string)
+    :param logger: logger name (string)
+    """
+    logger = logging.getLogger(logger)
+    logger.exception(str(localtime()) + " | " + msg)
