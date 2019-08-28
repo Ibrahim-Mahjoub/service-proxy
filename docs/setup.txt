@@ -13,7 +13,7 @@ General Setup:
      Require all granted
  </Directory>
 
- <Directory <Path to Project Folder>/src/sp-django>
+ <Directory *Path to Project Folder*/src/sp-django>
      <Files wsgi.py>
          Require all granted
      </Files>
